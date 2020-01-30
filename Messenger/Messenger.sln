@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messanger", "Messanger\Messanger.csproj", "{A4CEB5B8-77B6-4A06-A3F0-3CAD8E177982}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger", "Messenger\Messenger.csproj", "{A4CEB5B8-77B6-4A06-A3F0-3CAD8E177982}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

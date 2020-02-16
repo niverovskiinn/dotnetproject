@@ -6,10 +6,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using AtmDbContext = Messenger.DataAccess.AtmDbContext;
+using IUnitOfWork = Messenger.DataAccess.UnitOfWork.IUnitOfWork;
+using UnitOfWork = Messenger.DataAccess.UnitOfWork.UnitOfWork;
 
 namespace Messenger
 {
@@ -26,6 +30,10 @@ namespace Messenger
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<DbContext, AtmDbContext>(builder => builder.UseSqlite(
+                Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using DataAccess.Repository;
+using Messenger.DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 using Models;
 
-namespace DataAccess.UnitOfWork
+namespace Messenger.DataAccess.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -19,7 +19,7 @@ namespace DataAccess.UnitOfWork
             _db.Dispose();
         }
 
-        public IRepository<T> Repository<T>() where T : class, IEntity
+        public Repository.IRepository<T> Repository<T>() where T : class, IEntity
         {
             return new Repository<T>(_db);
         }

@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger", "Messenger\Messenger.csproj", "{7758E940-555B-4DFF-9E4A-75A08F98B005}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{AE6E13BB-FAF7-42D8-8C67-CB09D3D244BC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{46D99C1F-FB3E-4C7B-9E59-2E51963CA44D}"
 EndProject
 Global
@@ -16,10 +14,6 @@ Global
 		{7758E940-555B-4DFF-9E4A-75A08F98B005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7758E940-555B-4DFF-9E4A-75A08F98B005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7758E940-555B-4DFF-9E4A-75A08F98B005}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE6E13BB-FAF7-42D8-8C67-CB09D3D244BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE6E13BB-FAF7-42D8-8C67-CB09D3D244BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE6E13BB-FAF7-42D8-8C67-CB09D3D244BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE6E13BB-FAF7-42D8-8C67-CB09D3D244BC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{46D99C1F-FB3E-4C7B-9E59-2E51963CA44D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{46D99C1F-FB3E-4C7B-9E59-2E51963CA44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46D99C1F-FB3E-4C7B-9E59-2E51963CA44D}.Release|Any CPU.ActiveCfg = Release|Any CPU

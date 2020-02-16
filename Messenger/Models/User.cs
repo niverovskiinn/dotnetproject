@@ -6,6 +6,9 @@ namespace Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        //public  Type { get; set; }
+        public string Login { get; set; }
+        public DateTime Birthday { get; set; }
+        public string Password { get; set; }
+        public DateTime SignInTime { get; set; }
     }
 }

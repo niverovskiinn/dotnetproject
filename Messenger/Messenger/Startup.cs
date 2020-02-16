@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Messenger.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,9 @@ namespace Messenger
             services.AddDbContext<DbContext, AtmDbContext>(builder => builder.UseSqlite(
                 Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<DialoguesService>();
+            services.AddScoped<MessagesService>();
+            services.AddScoped<UsersService>();
             
         }
 

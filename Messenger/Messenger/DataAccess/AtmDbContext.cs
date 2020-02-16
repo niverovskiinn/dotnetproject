@@ -11,7 +11,7 @@ namespace Messenger.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // optionsBuilder.UseSqlite("Data Source=/Users/nikita/Documents/GitHub/ATMProject/ATM/Engine/DataAccess/AtmDb.db");
+            // optionsBuilder.UseMySql("server=localhost;UserId=root;Password=password;database=messengerdb;");
         }
 
         public DbSet<Message> Messages { get; set; }

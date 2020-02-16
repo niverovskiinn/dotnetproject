@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Messenger.Migrations
@@ -12,7 +13,7 @@ namespace Messenger.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserIdFirst = table.Column<int>(nullable: false),
                     UserIdSecond = table.Column<int>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false)
@@ -27,7 +28,7 @@ namespace Messenger.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DialogueId = table.Column<int>(nullable: false),
                     UserIdFrom = table.Column<int>(nullable: false),
                     Data = table.Column<string>(nullable: true),
@@ -43,7 +44,7 @@ namespace Messenger.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Login = table.Column<string>(nullable: true),
                     Birthday = table.Column<DateTime>(nullable: false),

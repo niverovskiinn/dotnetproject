@@ -31,7 +31,7 @@ namespace Messenger
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<DbContext, AtmDbContext>(builder => builder.UseSqlite(
+            services.AddDbContext<DbContext, AtmDbContext>(builder => builder.UseMySql(
                 Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<DialoguesService>();

@@ -81,6 +81,9 @@ namespace Messenger.Migrations
                     b.Property<DateTime>("SignInTime")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Token")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");

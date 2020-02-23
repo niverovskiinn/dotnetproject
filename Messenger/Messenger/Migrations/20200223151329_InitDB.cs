@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Messenger.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +31,7 @@ namespace Messenger.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DialogueId = table.Column<int>(nullable: false),
                     UserIdFrom = table.Column<int>(nullable: false),
-                    Data = table.Column<string>(nullable: true),
+                    Data = table.Column<string>(nullable: false),
                     MsgTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -45,11 +45,12 @@ namespace Messenger.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Login = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                    Login = table.Column<string>(nullable: false),
                     Birthday = table.Column<DateTime>(nullable: false),
-                    Password = table.Column<string>(nullable: true),
-                    SignInTime = table.Column<DateTime>(nullable: false)
+                    Password = table.Column<string>(nullable: false),
+                    SignInTime = table.Column<DateTime>(nullable: false),
+                    Token = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

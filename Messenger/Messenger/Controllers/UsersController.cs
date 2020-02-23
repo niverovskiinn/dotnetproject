@@ -1,18 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Messenger.DataAccess.UnitOfWork;
 using Messenger.Services;
+using Messenger.Services.Utility;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Models;
 
 namespace Messenger.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController: ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly UsersService _service;
 
@@ -21,27 +19,46 @@ namespace Messenger.Controllers
             _service = service;
         }
 
-        public async Task<ActionResult> SignInUser(dynamic data)
+        [HttpPost("signup")]
+        public async Task<ActionResult> SignUp(RegForm data)
         {
-            await _service.SignInUser(data);
-            return Ok();
+            try
+            {
+                await _service.SignInUser(data);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(215, e.Message);
+            }
         }
 
-        public async Task<ActionResult<User>> LogIn(dynamic data)
+        [HttpPost("signin")]
+        public async Task<ActionResult<User>> SignIn(SignInForm data)
         {
-            return Ok(await _service.LogIn(data));
+            var u = await _service.LogIn(data);
+            return u == null ? StatusCode(215, "There is no such user!") : Ok(u);
         }
         
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> SearchUser(dynamic data)
+        [HttpPost("signout")]
+        public async Task<ActionResult> SignOut(SignOutForm data)
         {
-            return Ok(await _service.GetUserList(data));
+            try
+            {
+                await _service.SignOut(data);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(215, e.Message);
+            }
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
+        [HttpPost("search")]
+        public async Task<ActionResult<IEnumerable<User>>> SearchUser(int id, string token, string data)
         {
-            return Ok(await _service.GetAllAsync());
+            return Ok(await _service.GetUserList(id, token, data));
         }
+        
     }
 }

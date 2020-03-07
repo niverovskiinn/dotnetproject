@@ -19,7 +19,7 @@ namespace Messenger.DataAccess.UnitOfWork
             _db.Dispose();
         }
 
-        public Repository.IRepository<T> Repository<T>() where T : class, IEntity
+        public IRepository<T> Repository<T>() where T : class, IEntity
         {
             return new Repository<T>(_db);
         }

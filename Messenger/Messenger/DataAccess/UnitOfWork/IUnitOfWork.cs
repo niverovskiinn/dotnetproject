@@ -7,7 +7,7 @@ namespace Messenger.DataAccess.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        Repository.IRepository<T> Repository<T>() where T : class, IEntity;
+        IRepository<T> Repository<T>() where T : class, IEntity;
         Task SaveChangesAsync();
     }
 }

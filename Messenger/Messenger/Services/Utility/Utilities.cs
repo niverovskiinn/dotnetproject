@@ -17,10 +17,8 @@ namespace Messenger.Services.Utility
 
         public static string ComputeToken()
         {
-            return ComputeHash(DateTime.Now.ToString("O") + new Random().Next(int.MinValue,int.MaxValue), 
+            return ComputeHash(DateTime.Now.ToString("O") + new Random().Next(int.MinValue, int.MaxValue),
                 new MD5CryptoServiceProvider());
         }
-
-
     }
 }

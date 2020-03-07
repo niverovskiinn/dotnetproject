@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Messenger.DataAccess.UnitOfWork;
@@ -10,6 +11,7 @@ namespace Messenger.Services
 {
     public class UsersService
     {
+        private const int MinutesToSignOut = 15;
         private readonly IUnitOfWork _unitOfWork;
 
         public UsersService(IUnitOfWork unitOfWork)
@@ -17,9 +19,8 @@ namespace Messenger.Services
             _unitOfWork = unitOfWork;
         }
 
-        
 
-        public async Task SignInUser(RegForm form)
+        public async Task SignUpUser(SignUpForm form)
         {
             var user = await _unitOfWork.Repository<User>().GetAsync(u => u.Login == form.Login);
             if (user == null)
@@ -40,11 +41,11 @@ namespace Messenger.Services
             }
         }
 
-        public async Task<User> LogIn(SignInForm data)
+        public async Task<User> LogIn(string login, string password)
         {
             var user = await _unitOfWork.Repository<User>().GetAsync(
-                u => u.Login == data.Login &&
-                     u.Password == Utilities.ComputeHash(data.Password, new MD5CryptoServiceProvider()));
+                u => u.Login == login &&
+                     u.Password == Utilities.ComputeHash(password, new MD5CryptoServiceProvider()));
 
             if (user == null) return null;
 
@@ -57,22 +58,26 @@ namespace Messenger.Services
 
         public async Task<IEnumerable<User>> GetUserList(int id, string token, string data)
         {
-            if (await IsUserAuth(id, token))
+            if (!await IsUserAuth(id, token)) throw new Exception("Authentication error");
+
+            var users = await _unitOfWork.Repository<User>().GetListAsync(u => u.Login.Contains(data)
+                                                                               || u.Name.Contains(data));
+            var userList = users.ToList();
+            foreach (var user in userList)
             {
-                return await _unitOfWork.Repository<User>().GetListAsync(u => u.Login.Contains(data)
-                                                                              || u.Name.Contains(data));
+                user.Password = null;
+                user.Token = null;
             }
 
-            throw new Exception("Authentication error");
+            return userList;
         }
 
-        public async Task SignOut(SignOutForm data)
+        public async Task SignOut(int id, string token)
         {
-
-            if (!await IsUserAuth(data.Id, data.Token))
+            if (!await IsUserAuth(id, token))
                 throw new Exception("Unexpected!");
 
-            var us = await _unitOfWork.Repository<User>().GetAsync(u => u.Id == data.Id);
+            var us = await _unitOfWork.Repository<User>().GetAsync(u => u.Id == id);
             us.Token = null;
             _unitOfWork.Repository<User>().Update(us);
             await _unitOfWork.SaveChangesAsync();
@@ -81,7 +86,13 @@ namespace Messenger.Services
         public async Task<bool> IsUserAuth(int id, string token)
         {
             var u = await _unitOfWork.Repository<User>().GetAsync(u => u.Id == id && u.Token == token);
-            return  u != null && (DateTime.Now - u.SignInTime).TotalMinutes > 15;
+            return u != null && (DateTime.Now - u.SignInTime).TotalMinutes < MinutesToSignOut;
+        }
+
+        public async Task<bool> IsUser(int id)
+        {
+            var u = await _unitOfWork.Repository<User>().GetAsync(u => u.Id == id);
+            return u != null;
         }
     }
 }

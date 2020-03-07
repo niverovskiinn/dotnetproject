@@ -9,65 +9,56 @@ namespace Messenger.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Dialogues",
-                columns: table => new
+                "Dialogues",
+                table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>()
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserIdFirst = table.Column<int>(nullable: false),
-                    UserIdSecond = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false)
+                    UserIdFirst = table.Column<int>(),
+                    UserIdSecond = table.Column<int>(),
+                    Created = table.Column<DateTime>()
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dialogues", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Dialogues", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Messages",
-                columns: table => new
+                "Messages",
+                table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>()
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    DialogueId = table.Column<int>(nullable: false),
-                    UserIdFrom = table.Column<int>(nullable: false),
-                    Data = table.Column<string>(nullable: false),
-                    MsgTime = table.Column<DateTime>(nullable: false)
+                    DialogueId = table.Column<int>(),
+                    UserIdFrom = table.Column<int>(),
+                    Data = table.Column<string>(),
+                    MsgTime = table.Column<DateTime>()
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Messages", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Messages", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
+                "Users",
+                table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>()
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: false),
-                    Login = table.Column<string>(nullable: false),
-                    Birthday = table.Column<DateTime>(nullable: false),
-                    Password = table.Column<string>(nullable: false),
-                    SignInTime = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(),
+                    Login = table.Column<string>(),
+                    Birthday = table.Column<DateTime>(),
+                    Password = table.Column<string>(),
+                    SignInTime = table.Column<DateTime>(),
                     Token = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Users", x => x.Id); });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Dialogues");
+                "Dialogues");
 
             migrationBuilder.DropTable(
-                name: "Messages");
+                "Messages");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                "Users");
         }
     }
 }

@@ -1,29 +1,63 @@
-
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Messenger.DataAccess.UnitOfWork;
+using Messenger.Services;
+using Messenger.Services.Utility;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Models;
 
 namespace Messenger.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DialoguesController: ControllerBase
+    public class DialoguesController : ControllerBase
     {
-        private readonly IUnitOfWork _unit;
+        private readonly DialoguesService _service;
 
-        public DialoguesController(IUnitOfWork unit)
+        public DialoguesController(DialoguesService service)
         {
-            _unit = unit;
+            _service = service;
         }
-        [HttpGet]
-        public async Task<IEnumerable<Dialogue>> Get()
+
+        [HttpPost("create")]
+        public async Task<ActionResult> CreateDialogue(CreateDialogueForm form)
         {
-            return await _unit.Repository<Dialogue>().GetAllAsync();
+            try
+            {
+                await _service.CreateDialogue(form.Id, form.Token, form.IdUser);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(215, e.Message);
+            }
+        }
+        
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Dialogue>>> GetDialogues(int id, string token)
+        {
+            try
+            {
+                return Ok(await _service.GetAll(id, token));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(215, e.Message);
+            }
+        }
+
+        [HttpPost("remove")]
+        public async Task<ActionResult> RemoveDialogue(RemoveDialogueForm form)
+        {
+            try
+            {
+                await _service.RemoveDialogue(form.Id, form.Token, form.IdDial);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(215, e.Message);
+            }
         }
     }
 }
